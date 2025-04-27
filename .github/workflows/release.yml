@@ -1,7 +1,10 @@
 name: Node.js CI
 
-on: [push]
-
+on:
+  push:
+    branches:
+      - main
+      
 jobs:
   build:
 
@@ -13,9 +16,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
+          registry-url: https://registry.npmjs.org
       
-      - run: npm install
-      - run: npm run build
-      - run: npm publish --access public --tag latest
+      - name: "Installing dependencies"
+        run: npm install
+      
+      - name: "Building package"
+        run: npm run build
+
+      - name: "Publishing"
+        run: npm publish --access public --tag latest
         env:
           NODE_AUTH_TOKEN:  ${{ secrets.NPM_TOKEN }}

@@ -4,6 +4,7 @@
 		"module": "CommonJS",
 		"rootDir": "./",
 		"baseUrl": "./",
+    "sourceMap": true,
 		"declaration": true,
 		"declarationMap": true,
 		"outDir": "./dist",
