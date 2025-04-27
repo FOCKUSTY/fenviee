@@ -1,0 +1,37 @@
+{
+  "name": "fenviee",
+  "version": "0.0.1",
+  "description": "simple utility for .env files",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "env",
+    "environment",
+    "simple"
+  ],
+  "author": {
+    "name": "FOCKUSTY",
+    "url": "https://github.com/FOCKUSTY",
+    "email": "viserd.yt@gmail.com"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=7.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FOCKUSTY/fenviee"
+  },
+  "bugs": {
+    "email": "viserd.yt@gmail.com",
+    "url": "https://github.com/FOCKUSTY/fenviee/issues"
+  },
+  "devDependencies": {
+    "dotenv": "^16.5.0",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
