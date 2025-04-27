@@ -1,14 +1,12 @@
 {
   "name": "fenviee",
-  "version": "0.0.2",
+  "version": "0.0.1.test.1",
   "description": "simple utility for .env files",
   "main": "index.js",
   "scripts": {
     "build": "tsc"
   },
-  "files": [
-    "./dist/**"
-  ],
+  "files": [],
   "keywords": [
     "env",
     "environment",
