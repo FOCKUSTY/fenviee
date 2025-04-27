@@ -2,7 +2,8 @@
   "name": "fenviee",
   "version": "0.0.1-test.4",
   "description": "simple utility for .env files",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc"
   },
