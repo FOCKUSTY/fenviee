@@ -4,8 +4,12 @@
   "description": "simple utility for .env files",
   "main": "index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "publish": "npm publish --access public"
   },
+  "files": [
+    "./dist/**"
+  ],
   "keywords": [
     "env",
     "environment",
