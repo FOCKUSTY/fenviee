@@ -137,7 +137,7 @@ export class Env<
       ...uniqueResult.errors,
     ];
 
-    if (allErrors.length > 0) {
+    if (allErrors.length > 0 && this.data.dangerousIgnoreErrors !== true) {
       const messages = allErrors.map((e) => e.message).join('\n');
       throw new Error(`Environment configuration failed:\n${messages}`);
     }

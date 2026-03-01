@@ -40,6 +40,7 @@ export type EnvInitializeData<
   unique: Validators<UniqueRecord>;
   /** Значения по умолчанию для partial-переменных (используются, если ключ отсутствует в env). */
   default: Record<PartialProperties[number], string>;
+  dangerousIgnoreErrors?: boolean;
 };
 
 /**
