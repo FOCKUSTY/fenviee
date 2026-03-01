@@ -1,27 +1,25 @@
 {
   "name": "fenviee",
-  "version": "0.0.1-alpha.1",
+  "version": "0.1.0",
   "description": "simple utility for .env files",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc"
   },
-  "files": [
-    "./package.json",
-    "./README.md",
-    "./LICENSE",
-
-    "./**/*.js",
-    "./**/*.js.map",
-    "./**/*.d.ts",
-    "./**/*.d.ts.map",
-
-    "!./**/*.ts"
-  ],
+  "files": ["dist", "README.md", "LICENSE"],
   "keywords": [
     "env",
     "environment",
+    "variables",
+    "configuration",
+    "config",
+    "typescript",
+    "type-safe",
+    "validation",
+    "dotenv",
+    "process-env",
+    "safe",
     "simple"
   ],
   "author": {
@@ -31,7 +29,8 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=7.6.0"
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   },
   "repository": {
     "type": "git",
@@ -42,6 +41,7 @@
     "url": "https://github.com/FOCKUSTY/fenviee/issues"
   },
   "devDependencies": {
+    "@types/node": "^25.3.0",
     "dotenv": "^16.5.0",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",

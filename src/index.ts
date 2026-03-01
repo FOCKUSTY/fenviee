@@ -1,9 +1,5 @@
-import EnvCreator, { CreateEnv, Env, EnvUtility } from "./env/index";
+import Env from "./env";
 
-export {
-  CreateEnv,
-  Env,
-  EnvUtility
-}
+export * from "./env";
 
-export default EnvCreator;
+export default Env;

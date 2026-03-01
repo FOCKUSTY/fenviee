@@ -9,6 +9,8 @@
 		"declarationMap": true,
 		"outDir": "./dist",
 		"esModuleInterop": true,
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
 		"skipLibCheck": true
