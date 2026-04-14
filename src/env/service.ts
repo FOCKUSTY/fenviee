@@ -5,6 +5,7 @@ import type {
   SomeRecord,
   UnionToIntersection,
 } from './types';
+import { isUrl } from './validators';
 
 /**
  * Преобразователь значения по умолчанию для обязательных переменных.
@@ -33,19 +34,20 @@ export const defaultValueTransformer = (value?: string) => {
  * так что не требуют объявления в каком-то массиве или списке
  */
 export class Env<
-  UniqueRecord extends SomeRecord,
-  RequiredProperties extends EnvProperties,
-  PartialProperties extends EnvProperties,
+  const UniqueRecord extends SomeRecord,
+  const RequiredProperties extends EnvProperties,
+  const PartialProperties extends EnvProperties,
 > {
   /**
    * Создаёт функцию-конструктор для конкретного экземпляра Env с привязкой к process.env.
    * @param env - объект окружения (обычно process.env)
    * @returns функция, которая принимает данные инициализации и возвращает экземпляр Env
    */
-  public static create<UniqueProperties extends SomeRecord>(env: NodeJS.ProcessEnv) {
+  public static create(env: NodeJS.ProcessEnv) {
     return <
-      RequiredProperties extends EnvProperties,
-      PartialProperties extends EnvProperties
+      const UniqueProperties extends SomeRecord,
+      const RequiredProperties extends EnvProperties,
+      const PartialProperties extends EnvProperties
     >(
       data: EnvInitializeData<UniqueProperties, RequiredProperties, PartialProperties>
     ) => {
@@ -61,9 +63,9 @@ export class Env<
    * @returns объект с массивом ошибок и частичной записью успешно обработанных ключей
    */
   public static transform<
-    Properties extends EnvProperties,
-    Value = string,
-    PropertyTransformerReturn extends string = Properties[number]
+    const Properties extends EnvProperties,
+    const Value = string,
+    const PropertyTransformerReturn extends string = Properties[number]
   >({
     properties,
     propertyTransformer,
