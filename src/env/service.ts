@@ -4,8 +4,8 @@ import type {
   FormatterParameters,
   SomeRecord,
   UnionToIntersection,
-} from './types';
-import { isUrl } from './validators';
+} from "./types";
+import { isUrl } from "./validators";
 
 /**
  * Преобразователь значения по умолчанию для обязательных переменных.
@@ -16,7 +16,7 @@ import { isUrl } from './validators';
  */
 export const defaultValueTransformer = (value?: string) => {
   if (value === undefined) {
-    throw new Error('value is not defined');
+    throw new Error("value is not defined");
   }
   return value;
 };
@@ -29,7 +29,7 @@ export const defaultValueTransformer = (value?: string) => {
  * @template UniqueRecord - запись, описывающая unique-переменные и их типы после валидации.
  * @template RequiredProperties - список обязательных ключей (readonly string[]).
  * @template PartialProperties - список необязательных ключей (readonly string[]).
- * 
+ *
  * Примечание: не нужно указывать unique-переменные в required или partial, они относятся именно к уникальным,
  * так что не требуют объявления в каком-то массиве или списке
  */
@@ -47,11 +47,18 @@ export class Env<
     return <
       const UniqueProperties extends SomeRecord,
       const RequiredProperties extends EnvProperties,
-      const PartialProperties extends EnvProperties
+      const PartialProperties extends EnvProperties,
     >(
-      data: EnvInitializeData<UniqueProperties, RequiredProperties, PartialProperties>
+      data: EnvInitializeData<
+        UniqueProperties,
+        RequiredProperties,
+        PartialProperties
+      >,
     ) => {
-      return new Env<UniqueProperties, RequiredProperties, PartialProperties>(env, data).execute();
+      return new Env<UniqueProperties, RequiredProperties, PartialProperties>(
+        env,
+        data,
+      ).execute();
     };
   }
 
@@ -65,13 +72,13 @@ export class Env<
   public static transform<
     const Properties extends EnvProperties,
     const Value = string,
-    const PropertyTransformerReturn extends string = Properties[number]
+    const PropertyTransformerReturn extends string = Properties[number],
   >({
     properties,
     propertyTransformer,
     valueTransformer,
     errorTransformer,
-    env
+    env,
   }: FormatterParameters<Properties, Value, PropertyTransformerReturn>): {
     errors: Error[];
     data: Partial<Record<PropertyTransformerReturn, Value>>;
@@ -99,7 +106,10 @@ export class Env<
   }
 
   /** Массив всех ключей (обязательных и необязательных) */
-  public readonly all: (RequiredProperties[number] | PartialProperties[number])[];
+  public readonly all: (
+    | RequiredProperties[number]
+    | PartialProperties[number]
+  )[];
 
   /** Массив ключей unique-переменных (для внутреннего использования) */
   public readonly unique: (keyof UniqueRecord)[];
@@ -111,7 +121,11 @@ export class Env<
    */
   protected constructor(
     public readonly env: NodeJS.ProcessEnv,
-    public readonly data: EnvInitializeData<UniqueRecord, RequiredProperties, PartialProperties>
+    public readonly data: EnvInitializeData<
+      UniqueRecord,
+      RequiredProperties,
+      PartialProperties
+    >,
   ) {
     this.all = [...data.required, ...data.partial];
     this.unique = Object.keys(data.unique) as (keyof UniqueRecord)[];
@@ -140,7 +154,7 @@ export class Env<
     ];
 
     if (allErrors.length > 0 && this.data.dangerousIgnoreErrors !== true) {
-      const messages = allErrors.map((e) => e.message).join('\n');
+      const messages = allErrors.map((e) => e.message).join("\n");
       throw new Error(`Environment configuration failed:\n${messages}`);
     }
 
@@ -164,7 +178,8 @@ export class Env<
       properties: this.data.required,
       propertyTransformer: (p) => p,
       valueTransformer: defaultValueTransformer,
-      errorTransformer: ({ property }) => new Error(`Key ${property} is not defined in env`),
+      errorTransformer: ({ property }) =>
+        new Error(`Key ${property} is not defined in env`),
       env: this.env,
     });
   }
@@ -183,7 +198,11 @@ export class Env<
       } else if (property in this.data.default) {
         data[property] = this.data.default[property];
       } else {
-        errors.push(new Error(`Key ${property} is not defined in env and has no default value`));
+        errors.push(
+          new Error(
+            `Key ${property} is not defined in env and has no default value`,
+          ),
+        );
       }
     }
 
@@ -197,7 +216,7 @@ export class Env<
       propertyTransformer: (p) => p,
       valueTransformer: (value, key) => this.data.unique[key](value),
       errorTransformer: ({ error }) => new Error(String(error)),
-      env: this.env
+      env: this.env,
     });
   }
 }

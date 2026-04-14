@@ -42,23 +42,24 @@ npm install fenviee
 ### Базовый пример
 
 ```typescript
-import { Env } from 'fenviee';
+import { Env } from "fenviee";
 
 // Создаём конфигурацию
 const config = Env.create(process.env)({
-  required: ['NODE_ENV', 'PORT'] as const,
-  partial: ['LOG_LEVEL'] as const,
+  required: ["NODE_ENV", "PORT"] as const,
+  partial: ["LOG_LEVEL"] as const,
   default: {
-    LOG_LEVEL: 'info'
+    LOG_LEVEL: "info",
   },
   unique: {
     // Пример валидации числа
     MAX_CONNECTIONS: (value) => {
       const num = Number(value);
-      if (isNaN(num) || num <= 0) throw new Error('MAX_CONNECTIONS must be a positive number');
+      if (isNaN(num) || num <= 0)
+        throw new Error("MAX_CONNECTIONS must be a positive number");
       return num;
-    }
-  }
+    },
+  },
 });
 
 console.log(config);
@@ -88,11 +89,11 @@ MAX_CONNECTIONS must be a positive number
 
 ```typescript
 const { data, errors } = Env.transform({
-  properties: ['API_URL', 'TIMEOUT'] as const,
+  properties: ["API_URL", "TIMEOUT"] as const,
   env: process.env,
   propertyTransformer: (key) => `APP_${key}`,
-  valueTransformer: (value, key) => value ?? 'default',
-  errorTransformer: ({ error }) => error
+  valueTransformer: (value, key) => value ?? "default",
+  errorTransformer: ({ error }) => error,
 });
 ```
 
@@ -101,38 +102,38 @@ const { data, errors } = Env.transform({
 Библиотека предоставляет набор готовых трансформеров для наиболее частых случаев. Все они находятся в пространстве имён `EnvValidators` (или импортируются напрямую).
 
 ```typescript
-import { Env, isNumber, isBoolean, isUrl, isArray } from 'fenviee';
+import { Env, isNumber, isBoolean, isUrl, isArray } from "fenviee";
 
 const config = Env.create(process.env)({
-  required: ['APP_NAME'],
-  partial: ['LOG_LEVEL'],
-  default: { LOG_LEVEL: 'info' },
+  required: ["APP_NAME"],
+  partial: ["LOG_LEVEL"],
+  default: { LOG_LEVEL: "info" },
   unique: {
-    PORT: isPort,                    // число от 1 до 65535
+    PORT: isPort, // число от 1 до 65535
     DB_POOL_SIZE: isIntegerInRange(1, 100), // целое число в диапазоне
-    ENABLE_CACHE: isBoolean,          // true/false
-    API_BASE_URL: isUrl,              // валидный URL
-    CORS_ORIGINS: isArray(','),       // массив строк через запятую
-    CONFIG_JSON: isJSON<{ key: string }> // парсинг JSON
-  }
+    ENABLE_CACHE: isBoolean, // true/false
+    API_BASE_URL: isUrl, // валидный URL
+    CORS_ORIGINS: isArray(","), // массив строк через запятую
+    CONFIG_JSON: isJSON<{ key: string }>, // парсинг JSON
+  },
 });
 ```
 
 ### Список доступных валидаторов
 
-| Функция | Описание | Возвращаемый тип |
-| ------- | -------- | ---------------- |
-| `isString` | Значение должно быть определено, возвращает строку | `string` |
-| `isNumber` | Преобразует в число (целое или дробное) | `number` |
-| `isInteger` | Преобразует в целое число | `number` |
-| `isBoolean` | Принимает 'true'/'false'/'1'/'0' (регистр не важен) | `boolean` |
-| `isUrl` | Проверяет, что строка является валидным URL | `string` |
-| `isPort` | Проверяет, что число является портом (1–65535) | `number` |
-| `isEmail` | Простая проверка email | `string` |
-| `isJSON` | Парсит строку как JSON | `T` (параметризуется) |
-| `isArray(separator?)` | Разделяет строку по разделителю, возвращает массив непустых строк | `string[]` |
-| `isNumberInRange(min, max)` | Проверяет, что число в диапазоне | `number` |
-| `isIntegerInRange(min, max)` | Проверяет, что целое число в диапазоне | `number` |
+| Функция                      | Описание                                                          | Возвращаемый тип      |
+| ---------------------------- | ----------------------------------------------------------------- | --------------------- |
+| `isString`                   | Значение должно быть определено, возвращает строку                | `string`              |
+| `isNumber`                   | Преобразует в число (целое или дробное)                           | `number`              |
+| `isInteger`                  | Преобразует в целое число                                         | `number`              |
+| `isBoolean`                  | Принимает 'true'/'false'/'1'/'0' (регистр не важен)               | `boolean`             |
+| `isUrl`                      | Проверяет, что строка является валидным URL                       | `string`              |
+| `isPort`                     | Проверяет, что число является портом (1–65535)                    | `number`              |
+| `isEmail`                    | Простая проверка email                                            | `string`              |
+| `isJSON`                     | Парсит строку как JSON                                            | `T` (параметризуется) |
+| `isArray(separator?)`        | Разделяет строку по разделителю, возвращает массив непустых строк | `string[]`            |
+| `isNumberInRange(min, max)`  | Проверяет, что число в диапазоне                                  | `number`              |
+| `isIntegerInRange(min, max)` | Проверяет, что целое число в диапазоне                            | `number`              |
 
 Все валидаторы выбрасывают ошибку с понятным сообщением, если значение не проходит проверку. Эти ошибки автоматически собираются и агрегируются при вызове `Env.create`.
 
@@ -181,7 +182,7 @@ const config = getConfig({ required: [...], partial: [...], default: {...}, uniq
 Пример импорта типа:
 
 ```typescript
-import type { EnvInitializeData } from 'fenviee';
+import type { EnvInitializeData } from "fenviee";
 ```
 
 ## Лицензия

@@ -7,7 +7,11 @@
   "scripts": {
     "build": "tsc"
   },
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "keywords": [
     "env",
     "environment",

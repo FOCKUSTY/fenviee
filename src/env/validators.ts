@@ -11,7 +11,7 @@
  */
 export const isString = (value?: string): string => {
   if (value === undefined) {
-    throw new Error('value is not defined');
+    throw new Error("value is not defined");
   }
   return value;
 };
@@ -23,7 +23,7 @@ export const isString = (value?: string): string => {
  */
 export const isNumber = (value?: string): number => {
   if (value === undefined) {
-    throw new Error('value is not defined');
+    throw new Error("value is not defined");
   }
   const num = Number(value);
   if (isNaN(num)) {
@@ -51,11 +51,11 @@ export const isInteger = (value?: string): number => {
  */
 export const isBoolean = (value?: string): boolean => {
   if (value === undefined) {
-    throw new Error('value is not defined');
+    throw new Error("value is not defined");
   }
   const lower = value.toLowerCase();
-  if (lower === 'true' || lower === '1') return true;
-  if (lower === 'false' || lower === '0') return false;
+  if (lower === "true" || lower === "1") return true;
+  if (lower === "false" || lower === "0") return false;
   throw new Error(`value "${value}" is not a valid boolean`);
 };
 
@@ -120,10 +120,15 @@ export const isJSON = <T = any>(value?: string): T => {
  * @param separator - разделитель (по умолчанию ',')
  * @returns массив строк (пустые элементы удаляются)
  */
-export const isArray = (separator: string = ',') => (value?: string): string[] => {
-  const str = isString(value);
-  return str.split(separator).map(s => s.trim()).filter(s => s.length > 0);
-};
+export const isArray =
+  (separator: string = ",") =>
+  (value?: string): string[] => {
+    const str = isString(value);
+    return str
+      .split(separator)
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0);
+  };
 
 /**
  * Фабрика для создания валидатора числа с ограничениями.
@@ -131,13 +136,15 @@ export const isArray = (separator: string = ',') => (value?: string): string[] =
  * @param max - максимальное значение (включительно)
  * @returns валидатор числа
  */
-export const isNumberInRange = (min: number, max: number) => (value?: string): number => {
-  const num = isNumber(value);
-  if (num < min || num > max) {
-    throw new Error(`value "${value}" is not in range [${min}, ${max}]`);
-  }
-  return num;
-};
+export const isNumberInRange =
+  (min: number, max: number) =>
+  (value?: string): number => {
+    const num = isNumber(value);
+    if (num < min || num > max) {
+      throw new Error(`value "${value}" is not in range [${min}, ${max}]`);
+    }
+    return num;
+  };
 
 /**
  * Фабрика для создания валидатора целого числа с ограничениями.
@@ -145,10 +152,12 @@ export const isNumberInRange = (min: number, max: number) => (value?: string): n
  * @param max - максимальное значение (включительно)
  * @returns валидатор целого числа
  */
-export const isIntegerInRange = (min: number, max: number) => (value?: string): number => {
-  const num = isInteger(value);
-  if (num < min || num > max) {
-    throw new Error(`value "${value}" is not in range [${min}, ${max}]`);
-  }
-  return num;
-};
+export const isIntegerInRange =
+  (min: number, max: number) =>
+  (value?: string): number => {
+    const num = isInteger(value);
+    if (num < min || num > max) {
+      throw new Error(`value "${value}" is not in range [${min}, ${max}]`);
+    }
+    return num;
+  };

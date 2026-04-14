@@ -4,7 +4,7 @@
  */
 export type EnvProperties = readonly string[];
 
-export type DefaultEnv = Record<string, string|undefined>;
+export type DefaultEnv = Record<string, string | undefined>;
 
 /**
  * Общий тип для записи, где ключи — строки, значения — неизвестны.
@@ -65,16 +65,21 @@ type ErrorTransformerParameters = {
 export type FormatterParameters<
   Properties extends EnvProperties,
   Value = string,
-  PropertyTransformerReturn extends string = Properties[number]
+  PropertyTransformerReturn extends string = Properties[number],
 > = {
   /** Массив исходных ключей. */
   properties: Properties;
   /** Стандартный env (proccess.env) */
   env: DefaultEnv;
   /** Функция преобразования исходного ключа в новый ключ (например, добавление префикса). */
-  propertyTransformer: (property: Properties[number]) => PropertyTransformerReturn;
+  propertyTransformer: (
+    property: Properties[number],
+  ) => PropertyTransformerReturn;
   /** Функция преобразования значения из строки (или undefined) в целевой тип. */
-  valueTransformer: (value: string | undefined, key: PropertyTransformerReturn) => Value;
+  valueTransformer: (
+    value: string | undefined,
+    key: PropertyTransformerReturn,
+  ) => Value;
   /** Функция, создающая объект ошибки на основе параметров сбоя. */
   errorTransformer: (parameters: ErrorTransformerParameters) => Error;
 };
@@ -83,7 +88,8 @@ export type FormatterParameters<
  * Преобразует объединение типов (A | B | ...) в пересечение (A & B & ...).
  * Используется для объединения нескольких Record в один результирующий тип.
  */
-export type UnionToIntersection<Type> =
-  (Type extends unknown ? (parameter: Type) => void : never) extends (parameter: infer U) => void
-    ? U
-    : never;
+export type UnionToIntersection<Type> = (
+  Type extends unknown ? (parameter: Type) => void : never
+) extends (parameter: infer U) => void
+  ? U
+  : never;
